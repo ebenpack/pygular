@@ -5,9 +5,6 @@ import re
 app = Flask(__name__)
 
 def option_parse(s):
-    """
-
-    """
     opt_list = s.replace("options=" , " ").replace("&", " ").split()
     opt_list = "".join(opt_list)
     # If the 'x' flag is set, it needs to go first
@@ -23,14 +20,15 @@ def span_wrap(s):
     return '<span class="match">' + s.group() + '</span>'
 
 def regexp_higlight(regexp, text, opt_list):
-    return re.sub(regexp, span_wrap, text)
+    return re.sub(opt_list + regexp, span_wrap, text)
 
 @app.route('/regexp')
 def regexp_eval():
     regexp = str(request.args.get('regexp'))
-    options = (request.args.get('options'))
+    options = str((request.args.get('options')))
     test = str(request.args.get('test'))
 
+    warn=""
     opt_list = ""
     opt_list = option_parse(options)
 
@@ -41,8 +39,12 @@ def regexp_eval():
     if not test:
         return jsonify(result = "", fulltext = "")
     else:
-        m = re.findall(regexp, "(?" + opt_list +")" + test)
-        return jsonify(result = m, fulltext = regexp_higlight(regexp, test, opt_list))
+        try:
+            m = re.findall(opt_list + regexp, test)
+            return jsonify(result = m, fulltext = regexp_higlight(regexp, test, opt_list), warn=warn)
+        except Exception:
+            warn = "Invalid expression"
+            return jsonify(result = [], fulltext = test, warn=warn)
 
 #    re.DOTALL
 #   re.UNICODE

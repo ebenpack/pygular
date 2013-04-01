@@ -6,13 +6,16 @@
             <label id="regexp_label">Your regular expression:</label>
             <br />
             <input type="text" name="regexp" id="regexp" value="" />
-            <div class="options" id="options">
-                <input type="checkbox" name="options" value="L">Locale
-                <input type="checkbox" name="options" value="m">Multiline
-                <input type="checkbox" name="options" value="s">Dot all
-                <input type="checkbox" name="options" value="u">Unicode
-                <input type="checkbox" name="options" value="i">Ignore Case
-                <input type="checkbox" name="options" value="x">Verbose
+            <div class="options_warning">
+                <div class="options" id="options">
+                    <input type="checkbox" name="options" value="L">Locale
+                    <input type="checkbox" name="options" value="m">Multiline
+                    <input type="checkbox" name="options" value="s">Dot all
+                    <input type="checkbox" name="options" value="u">Unicode
+                    <input type="checkbox" name="options" value="i">Ignore Case
+                    <input type="checkbox" name="options" value="x">Verbose
+                </div>
+                <div id="warning" class="warning"></div>
             </div>
             <div class="test_results">
                 <div class="test">
