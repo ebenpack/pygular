@@ -7,7 +7,10 @@ You can try it out [yonder](http://pygular.appspot.com/).
 * Restructure. Move logic out of URL handler.
 * Flask-WTF
 * Complete more rigorous testing.
-* Fix wonkiness that shows up with certain expressions (e.g. "y?" or "()")
+* Fix wonkiness that shows up with certain expressions (e.g. "y?" or "()").
+* Clear fields button
+* Make permalink button?
+* Submit button?
 * Implement groups/backreferences.
 * Possibly implement a replacement mode.
 * (Long-term goal/pipe dream) Translate regexes into plain English, like [RegexBuddy](http://www.regexbuddy.com/).
