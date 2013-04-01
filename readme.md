@@ -2,6 +2,7 @@
 A simple flask app heavily inspired by [Rubular](http://www.rubular.com).
 
 #TODO
+* Restructure. Move logic out of URL handler.
 * Setup app on GAE.
 * Implement groups/backreferences.
 * Fix wonkiness that shows up with certain expressions (e.g. "y?" or "()")
