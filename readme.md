@@ -1,9 +1,11 @@
 # Pygular
 A simple flask app heavily inspired by [Rubular](http://www.rubular.com).
 
+You can try it out [yonder](http://pygular.appspot.com/).
+
 #TODO
 * Restructure. Move logic out of URL handler.
-* Setup app on GAE.
+* ~~Setup app on GAE.~~
 * Implement groups/backreferences.
 * Fix wonkiness that shows up with certain expressions (e.g. "y?" or "()")
 * Complete more rigorous testing.
