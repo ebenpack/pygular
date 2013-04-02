@@ -13,8 +13,11 @@ def option_parse(s):
     else:
         return ""
 
-def span_wrap(s):
-    return '<span class="match">' + s.group() + '</span>'
+def html_newline(s):
+    return s.replace('\n', '<br />')
+
+def span_wrap(s, html_class="match"):
+    return '<span class="' + html_class + '">' + s.group() + '</span>'
 
 def regexp_higlight(regexp, text, opt_list):
     return re.sub(opt_list + regexp, span_wrap, text)
@@ -30,13 +33,13 @@ def regexp_eval(request):
     if not regexp and not test:
         return jsonify(result = "", fulltext = "")
     if not regexp:
-        return jsonify(result = "", fulltext = test)
+        return jsonify(result = "", fulltext = html_newline(test))
     if not test:
         return jsonify(result = "", fulltext = "")
     else:
         try:
             m = re.findall(opt_list + regexp, test)
-            return jsonify(result = m, fulltext = regexp_higlight(regexp, test, opt_list), warn=warn)
+            return jsonify(result = m, fulltext = html_newline(regexp_higlight(regexp, test, opt_list)), warn=warn)
         except Exception:
             warn = "Invalid expression"
-            return jsonify(result = [], fulltext = test, warn=warn)
+            return jsonify(result = [], fulltext = html_newline(test, warn=warn))
