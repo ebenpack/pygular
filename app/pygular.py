@@ -1,8 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import jsonify
 import re
-
-
-app = Flask(__name__)
 
 def option_parse(s):
     opt_list = s.replace("options=" , " ").replace("&", " ").split()
@@ -22,14 +19,12 @@ def span_wrap(s):
 def regexp_higlight(regexp, text, opt_list):
     return re.sub(opt_list + regexp, span_wrap, text)
 
-@app.route('/regexp')
-def regexp_eval():
+def regexp_eval(request):
     regexp = str(request.args.get('regexp'))
     options = str((request.args.get('options')))
     test = str(request.args.get('test'))
 
     warn=""
-    opt_list = ""
     opt_list = option_parse(options)
 
     if not regexp and not test:
@@ -45,20 +40,3 @@ def regexp_eval():
         except Exception:
             warn = "Invalid expression"
             return jsonify(result = [], fulltext = test, warn=warn)
-
-#    re.DOTALL
-#   re.UNICODE
-#   re.IGNORECASE
-#   re.MULTILINE
-
-
-@app.route('/', methods=['GET', 'POST'])
-def regexp_main():
-    return render_template('home.html', body="Hello World!")
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template("404.html"), 404
-
-if __name__ == '__main__':
-    app.run(debug=True)
