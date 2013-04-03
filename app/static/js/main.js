@@ -1,5 +1,7 @@
 function regulate() {
-
+    /**
+     * Get the form values, send them to the serve as a JSON object, properly format the results and stick them back in the page.
+     */
     var req = {regexp: $('input[name="regexp"]').val(), options: $("input[name='options']").serialize(), test: $('textarea[name="test"]').val()}
 
     $.getJSON('/regexp', req, function(data) {
