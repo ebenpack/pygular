@@ -119,9 +119,7 @@ a, a:link {
 }
 
 .header {
-    background-image: url("/static/images/snout.png");
-    background-repeat: no-repeat;
-    background-position: center bottom;
+    background: url("/static/images/snout.png") no-repeat center bottom;
 }
 
 .header {
@@ -130,7 +128,7 @@ a, a:link {
     margin-top: 20px;
 }
 
-.regexp_main, .main_404, .reference {
+.regex_main, .main_404, .reference {
     border: 10px solid silver;
     overflow: hidden;
     padding: 20px;
@@ -160,7 +158,7 @@ input:focus, textarea:focus {
     width: 100%;
 }
 
-#regexp {
+#regex {
     height: 36px;
     width: 100%;
 }
@@ -197,7 +195,7 @@ input:focus, textarea:focus {
 }
 
 .result {
-    width: 100%%;
+    width: 100%;
     margin-top: 30px;
     min-height: 100px;
     overflow: hidden;
