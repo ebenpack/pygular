@@ -45,7 +45,7 @@ function regulate() {
 }
 
 $(function(){
-    $("#regexp, #test").keyup(function(){
+    $("#regex, #test").keyup(function(){
         regulate();
     });
 });
