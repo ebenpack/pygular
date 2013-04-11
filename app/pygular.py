@@ -1,5 +1,5 @@
 from flask import jsonify, request
-import re
+import re, cgi
 
 
 def request_wants_json():
@@ -77,8 +77,9 @@ def regexp_match(request):
         return jsonify(result="", fulltext="")
     else:
         try:
-            m = re.findall(opt_list + regexp, test)
-            return jsonify(result=m, fulltext=html_newline(regexp_highlight(regexp, test, opt_list)), warn=warn)
+            m = cgi.escape(re.findall(opt_list + regexp, test))
+            return jsonify(result=m, fulltext=html_newline(cgi.escape(regexp_highlight(regexp, test, opt_list))),
+                           warn=warn)
         except Exception:
             warn = "Invalid expression"
-            return jsonify(result = [], fulltext = html_newline(test), warn=warn)
+            return jsonify(result = [], fulltext = cgi.escape(html_newline(test)), warn=warn)
