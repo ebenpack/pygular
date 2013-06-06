@@ -62,9 +62,9 @@ def regexp_match(request):
     Return a string of formatted html with all sections of the original text matching the given regular expression
     wrapped in a span with a highlight class, and all newlines converted to breaks.
     """
-    regexp = str(request.args.get('regexp'))
+    regexp = cgi.escape(str(request.args.get('regexp')))
     options = str((request.args.get('options')))
-    test = str(request.args.get('test'))
+    test = cgi.escape(str(request.args.get('test')))
 
     warn = ""
     opt_list = option_parse(options)
@@ -77,8 +77,8 @@ def regexp_match(request):
         return jsonify(result="", fulltext="")
     else:
         try:
-            m = cgi.escape(re.findall(opt_list + regexp, test))
-            return jsonify(result=m, fulltext=html_newline(cgi.escape(regexp_highlight(regexp, test, opt_list))),
+            m = re.findall(opt_list + regexp, test)
+            return jsonify(result=m, fulltext=html_newline(regexp_highlight(regexp, test, opt_list)),
                            warn=warn)
         except Exception:
             warn = "Invalid expression"

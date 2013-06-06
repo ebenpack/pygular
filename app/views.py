@@ -11,10 +11,7 @@ def index():
 
 @app.route('/regexp')
 def regexp():
-    if request_wants_json():
-        return regexp_match(request)
-    else:
-        pass
+    return regexp_match(request)
 
 
 @app.errorhandler(404)
