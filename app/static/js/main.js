@@ -1,3 +1,18 @@
+// function calc_regex() {
+//     var url = "/doregex";
+//     var params = $("#form").serialize();
+//     $.post(url, params, 
+//     function(data) {
+//         $('#id_result').html(data);
+//     }, 
+//     "text"
+//     )
+//     .error(function(data) {
+//         $('#id_result').val("");
+//     }
+//     );
+// }
+
 function regulate() {
     /**
      * Get the form values, send them to the serve as a JSON object, properly format the results and stick them back in the page.
@@ -7,19 +22,20 @@ function regulate() {
     $.getJSON('/regexp', req, function(data) {
 
         var items = [];
-        $match_list = $('#result .match_list .list');
-        $text = $("#result .match_text .text");
+        $match_list = $('#result ol');
+        $text = $("#result .text");
 
         $.each(data.result, function(key, val) {
-            items.push('<li>' + val + '</li>');
+            items.push(val);
         });
 
         $match_list.empty();
-        $('<ol/>', {
-            'class': 'matches',
-            html: items.join('')
-        }).appendTo($match_list);
-
+        if (items.length > 0) {
+            $('<li/>', {
+                'class': 'matches',
+                html: items.join('')
+            }).appendTo($match_list);
+        }
         $text.empty();
         $text.append(data.fulltext);
 
