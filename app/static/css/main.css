@@ -214,6 +214,15 @@ input:focus, textarea:focus {
     border: 10px solid #404040;
 }
 
+.match_list .list {
+    color: #CCCCC8;
+    margin-top: 8px;
+}
+
+.match_list ol {
+    margin: 0.25em 0;
+}
+
 .match_text {
     margin-left: 10px;
     word-break: break-all;

@@ -47,7 +47,7 @@ function regulate() {
                 match_groups.push(val);
               });
 
-            $match_list.empty();
+            $('#result .match_list .list').empty();
             // Build match group lists
             // This feels wrong. Surely there's a better way to do this. Been working on this too long now.
             if (match_groups.length > 0) {
