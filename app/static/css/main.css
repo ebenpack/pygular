@@ -220,6 +220,8 @@ input:focus, textarea:focus {
 }
 
 .match_text .match {
+	padding: 2px;
+	margin: 0 2px;
     background-color: #40002f;
     color: #CCCCC8;
     /*#805977*/

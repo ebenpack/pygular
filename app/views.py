@@ -1,20 +1,20 @@
 from flask import render_template, request
-from pygular import regexp_match, request_wants_json
+from pygular import regexp_match_json, request_wants_json
+from forms import RegExForm
 from app import app
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('home.html')
-
-
-@app.route('/regexp')
-def regexp():
-    if request_wants_json():
-        return regexp_match(request)
+    form = RegExForm(request.form)
+    if form.validate_on_submit():
+        if request_wants_json():
+            return regexp_match_json(form)
+        else:
+            pass
     else:
-        pass
+        return render_template('home.html', form=form)
 
 
 @app.errorhandler(404)
