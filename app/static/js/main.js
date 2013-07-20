@@ -53,7 +53,7 @@ function regulate() {
             if (match_groups.length > 0) {
 
                 for (var i = 0; i < match_groups.length; i++) {
-                    $match_list.append($('<div/>', {'class': 'match_group', 'id': 'match_group' + i,  html: 'Match ' + (i + 1) + ':'}).append(
+                    $('#result .match_list .list').append($('<div/>', {'class': 'match_group', 'id': 'match_group' + i,  html: 'Match ' + (i + 1) + ':'}).append(
                         $('<ol/>', {'class': 'matches',}).append(
 
                         )
