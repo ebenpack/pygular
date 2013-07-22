@@ -54,13 +54,20 @@ function regulate() {
 
                 for (var i = 0; i < match_groups.length; i++) {
                     $('#result .match_list .list').append($('<div/>', {'class': 'match_group', 'id': 'match_group' + i,  html: 'Match ' + (i + 1) + ':'}).append(
-                        $('<ol/>', {'class': 'matches',}).append(
 
-                        )
                     ));
                     for (var j = 0; j < match_groups[i].length; j++)
                         {
-                            $('<li/>', {html: match_groups[i][j]}).appendTo($('#match_group' + i + ' .matches'));
+                            var match = ""
+                            $.each(
+                                    match_groups[i][j], function(key, val){
+                                        match = "<span class='match_name'>" + key + ".</span>" + '&nbsp;&nbsp;' + val;
+                                    });
+
+                            $('<div/>',
+                                {html: match,
+                                'class': 'match'
+                                }).appendTo($('#match_group' + i));
                         }
                 }
             }

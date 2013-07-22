@@ -9,12 +9,6 @@
         {{ form.regex }}
         <div class="options_warning">
             <div class="options" id="options">
-{#                {{ form.locale }}Locale#}
-{#                {{ form.multiline }}Multiline#}
-{#                {{ form.dot_all }}Dot all#}
-{#                {{ form.unicode }}Unicode#}
-{#                {{ form.ignore_case }}Ignore Case#}
-{#                {{ form.verbose }}Verbose#}
                 {% for option in form.options %}
                 {{ option }}{{ option.label }}
                 {% endfor %}
@@ -27,6 +21,7 @@
                 {{ form.test }}
             </div>
             <div id="result" class="result">
+
                 <div class="match_list">
                     <h4 class="title">Match Groups</h4>
                     <div class="list">

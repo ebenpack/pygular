@@ -28,19 +28,29 @@ def option_parse(s):
 
 
 def capture_groups(regexp, text):
+    """
+    Returns a list of all match groups. A match group consists of a list of matches, which are dictionaries mapping
+    the match number (or name if it is a named match) to the matched text.
+    """
     matchlist = regexp.finditer(text)
     match_return = []
 
-    # TODO: This feels wrong. Can it be done more elegantly? Too tired now to figure it out.
+    matches = regexp.findall(text)
+    groupindex = regexp.groupindex
+
+    # Is there any situation where two or more names would map to the same group number (i.e. group numbers not unique)?
+    groupindexinv = {v:k for k, v in groupindex.items()}
+
     if matchlist:
-        for match in matchlist:
+        for group in matches:
             newmatch = []
-            if match.groups():
-                for sub_match in match.groups():
-                    if sub_match:
-                        newmatch.append(cgi.escape(sub_match))
+            for i, match in enumerate(group):
+                if (i+1) in groupindexinv:
+                    newmatch.append({groupindexinv[(i+1)]: match})
+                else:
+                    newmatch.append({(i+1): match})
             match_return.append(newmatch)
-    match_return = [x for x in match_return if x != []]
+
     return match_return
 
 

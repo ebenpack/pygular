@@ -205,22 +205,36 @@ input:focus, textarea:focus {
     margin: 0;
 }
 
-.match_list, .match_text {
-    width: 405px;
-    min-height: 100px;
+.match_list , .match_text {
+    width: 445px;
     float: left;
+}
+
+.match_list .list, .match_text .text {
     background-color: #272822;
+    min-height: 100px;
     padding: 10px;
     border: 10px solid #404040;
 }
 
 .match_list .list {
     color: #CCCCC8;
-    margin-top: 8px;
 }
 
 .match_list ol {
     margin: 0.25em 0;
+}
+
+.match_group {
+    margin-bottom: 6px;
+}
+
+.match_group .match {
+    margin-left: 20px;
+}
+
+.match_name {
+    background-color: #40002f;
 }
 
 .match_text {
