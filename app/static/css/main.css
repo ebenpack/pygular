@@ -128,6 +128,11 @@ a, a:link {
     margin-top: 20px;
 }
 
+.hilite {
+    background-color: #c3d5d3;
+    color: #1D1D1C;
+}
+
 .regex_main, .main_404, .reference {
     border: 10px solid silver;
     overflow: hidden;
@@ -230,11 +235,7 @@ input:focus, textarea:focus {
 }
 
 .match_group .match {
-    margin-left: 20px;
-}
-
-.match_name {
-    background-color: #40002f;
+    margin: 0 0 0 20px;
 }
 
 .match_text {
@@ -242,12 +243,13 @@ input:focus, textarea:focus {
     word-break: break-all;
 }
 
+.match_text .text {
+    margin: 0;
+}
+
 .match_text .match {
 	padding: 2px;
 	margin: 0 2px;
-    background-color: #40002f;
-    color: #CCCCC8;
-    /*#805977*/
 }
 
 h3 {

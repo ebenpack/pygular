@@ -64,7 +64,7 @@ function regulate() {
                                         match = "<span class='match_name'>" + key + ".</span>" + '&nbsp;&nbsp;' + val;
                                     });
 
-                            $('<div/>',
+                            $('<pre/>',
                                 {html: match,
                                 'class': 'match'
                                 }).appendTo($('#match_group' + i));

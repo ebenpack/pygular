@@ -35,26 +35,32 @@ def capture_groups(regexp, text):
     matchlist = regexp.finditer(text)
     match_return = []
 
-    matches = regexp.findall(text)
+    # matches = regexp.findall(text)
     groupindex = regexp.groupindex
 
     # Is there any situation where two or more names would map to the same group number (i.e. group numbers not unique)?
-    groupindexinv = {v:k for k, v in groupindex.items()}
+
+
 
     if matchlist:
-        for group in matches:
+        for i, group in enumerate(matchlist):
             newmatch = []
-            for i, match in enumerate(group):
-                if (i+1) in groupindexinv:
-                    newmatch.append({groupindexinv[(i+1)]: match})
-                else:
-                    newmatch.append({(i+1): match})
-            match_return.append(newmatch)
-
+            if not group.groups():
+                continue
+            else:
+                # Is there any situation where two or more names would map to the same group number
+                # (i.e. group numbers not unique)? If so, this would be problematic.
+                groupindex = {v:k for k, v in regexp.groupindex.items()}
+                for j, match in enumerate(group.groups()):
+                    if groupindex and (j+1) in groupindex:
+                        newmatch.append({groupindex[(j+1)]: match})
+                    else:
+                        newmatch.append({(i+1): match})
+                match_return.append(newmatch)
     return match_return
 
 
-def regexp_highlight(regexp, text, html_class="match"):
+def regexp_highlight(regexp, text, html_class="match hilite"):
     """
     Return the given string with all string sections matched by the given regular expression wrapped in a
     span with a highlight class, and all necessary characters escaped.
@@ -73,13 +79,18 @@ def regexp_highlight(regexp, text, html_class="match"):
     for i, c in enumerate(text):
         if not span_list:
             return "".join(newtext) + cgi.escape(text[i:])
+        if i == span_list[-1][0]:
+            newtext.append('<span class="' + html_class + '">')
         if i == span_list[-1][1]:
             newtext.append('</span>')
             span_list.pop()
-        if not span_list:
-            return "".join(newtext) + cgi.escape(text[i:])
-        if i == span_list[-1][0]:
-            newtext.append('<span class="' + html_class + '">')
+            if not span_list:
+                return "".join(newtext) + cgi.escape(text[i:])
+            if i == span_list[-1][0]:
+                newtext.append('<span class="' + html_class + '">')
+            if i == span_list[-1][1]:
+                newtext.append('</span>')
+                span_list.pop()
         if c == '\n':
             newtext.append("<br />")
         else:
