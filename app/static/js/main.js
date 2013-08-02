@@ -1,21 +1,7 @@
 
 function show_example() {
-    var $result = $("#result")
-    $result.hide()
-
-    if ( $(".example").length <= 0) {
-        $result.after("<div class='example'>Pygular is a Python-based regular expression editor. It's a handy way to test regular expressions as you write them. To start, enter a regular expression and a test string. Or you can try an <a href='#' class='example_link'>example</a>.</div>");
-        $(".example_link").on('click', function(){
-
-            $("#regex").val("(?P<month>\\d{1,2})\\/(?P<day>\\d{1,2})\\/(?P<year>\\d{4})");
-            $("#test").text("Today's date is: 8/2/2013.");
-            regulate();
-            return false;
-        });
-    }
-    else {
-        $(".example").show();
-    }
+    $("#result").hide();
+    $(".example").show();
 }
 
 function regulate() {
@@ -120,6 +106,19 @@ $(function(){
     $("input[type=submit]").hide();
 
     show_example();
+
+    $(".example_link").on('click', function(){
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        $("#regex").val("(?P<month>\\d{1,2})\\/(?P<day>\\d{1,2})\\/(?P<year>\\d{4})");
+        $("#test").text("Today's date is: " + mm+'/'+dd+'/'+yyyy);
+        regulate();
+        return false;
+    });
 
     $(".quickref").hide();
     $(".reference-heading").after(

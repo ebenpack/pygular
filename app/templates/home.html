@@ -61,25 +61,28 @@
         <input type="submit" name="submit" class="submit" value="Submit" />
     </form>
 
-    <div id="result" class="result">
-                <div class="match_list">
-                    <h4 class="title">Match Groups</h4>
-                        <div class="list">
-                        {% for match_group in match_list %}
-                            <div class="match_group" id="match_group{{ loop.index0 }}">
-                            Match {{ loop.index }}:
-                            {% for matches in match_group %}
-                                <pre class="match">{% for key, value in matches.items() %}<span class="match_name">{{ key }}.</span>&nbsp;&nbsp;{{ value }}{%  endfor %}</pre>
-                            {% endfor %}
-                            </div>
-                        {% endfor %}
-                        </div>
+    <div id="result" class="result" {% if not match_text %}style="display:none"{% endif %}>
+        <div class="match_list">
+            <h4 class="title">Match Groups</h4>
+                <div class="list">
+                {% for match_group in match_list %}
+                    <div class="match_group" id="match_group{{ loop.index0 }}">
+                    Match {{ loop.index }}:
+                    {% for matches in match_group %}
+                        <pre class="match">{% for key, value in matches.items() %}<span class="match_name">{{ key }}.</span>&nbsp;&nbsp;{{ value }}{%  endfor %}</pre>
+                    {% endfor %}
+                    </div>
+                {% endfor %}
                 </div>
-                <div class="match_text">
-                    <h4 class="title">Match text</h4>
-                    <pre class="text">{{ match_text | safe }}</pre>
-                </div>
-            </div>
+        </div>
+        <div class="match_text">
+            <h4 class="title">Match text</h4>
+            <pre class="text">{{ match_text | safe }}</pre>
+        </div>
+    </div>
+    <div class="example" {% if match_text %}style="display:none"{% endif %}>
+            Pygular is a Python-based regular expression editor. It's a handy way to test regular expressions as you write them. To start, enter a regular expression and a test string. Or you can try an <a href='#' class='example_link'>example</a>.
+    </div>
 </div>
 
 <h3 class="reference-heading">Regex quick reference</h3>
