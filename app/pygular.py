@@ -55,7 +55,14 @@ def capture_groups(regexp, text):
                     if groupindex and (j+1) in groupindex:
                         newmatch.append({groupindex[(j+1)]: match})
                     else:
-                        newmatch.append({(j+1): match})
+                        #If match is None (which is returned the match object group method when a group is contained
+                        # in a part of the pattern that did not match), just add an empty string to the match group.
+                        # Alternatively, something like "<span class='alert'>No Match</span>" could be returned, but
+                        # I'm not sure if that's appropriate/correct or not.
+                        if not match:
+                            newmatch.append({(j+1): ""})
+                        else:
+                            newmatch.append({(j+1): match})
                 match_return.append(newmatch)
     return match_return
 
