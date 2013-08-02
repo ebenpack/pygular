@@ -94,8 +94,7 @@ function regulate() {
                     $warn.empty();
                 });
             }
-          },
-
+          }
         });
     }
 }
