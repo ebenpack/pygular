@@ -62,12 +62,12 @@
                     <h4 class="title">Match Groups</h4>
                         <div class="list">
                         {% for match_group in match_list %}
+                            <div class="match_group" id="match_group{{ loop.index0 }}">
+                            Match {{ loop.index }}:
                             {% for matches in match_group %}
-                                <div class="match_group">
-                                Match {{ matches.index }}:
                                 <pre class="match">{% for key, value in matches.items() %}<span class="match_name">{{ key }}.</span>&nbsp;&nbsp;{{ value }}{%  endfor %}</pre>
-                                </div>
                             {% endfor %}
+                            </div>
                         {% endfor %}
                         </div>
                 </div>
