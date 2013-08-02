@@ -103,10 +103,17 @@ $(function(){
     $("#regex, #test").keyup(function(){
         regulate();
     });
-});
 
-$(function(){
     $("input[name='options']").click(function(){
         regulate();
     });
+
+    $(".quickref").hide();
+    $(".reference-heading").after(
+        $("<a href='#'>").html("[Show]").on('click', function(){
+            $(".quickref").slideToggle();
+            return false;
+        })
+    );
+
 });
