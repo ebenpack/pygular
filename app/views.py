@@ -1,5 +1,5 @@
 from flask import render_template, request
-from pygular import regexp_match_json, request_wants_json
+from pygular import regexp_match, regexp_match_json, request_wants_json
 from forms import RegExForm
 from app import app
 
@@ -12,9 +12,10 @@ def index():
         if request_wants_json():
             return regexp_match_json(form)
         else:
-            pass
+            match = regexp_match(form)
+            return render_template('home.html', form=form, match_list=match.match_groups, match_text=match.match_text)
     else:
-        return render_template('home.html', form=form)
+        return render_template('home.html', form=form, match_list="", match_text="")
 
 
 @app.errorhandler(404)

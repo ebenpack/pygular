@@ -18,9 +18,9 @@
 ("\b","Any word boundary"),
 ("(...)","Matches whatever regular expression is inside the parentheses, and indicates the start and end of a group."),
 ("(?:...)","A non-grouping version of regular parentheses."),
-("(?P<name>:...)","A named version of regular parentheses."),
-("(?#:...)","A comment; the contents of the parentheses are simply ignored."),
-("(?=...)","Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion."),
+("(?P<name>...)","A named version of regular parentheses."),
+("(?#...)","A comment; the contents of the parentheses are simply ignored."),
+("(?=..)","Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion."),
 ("(?!...)","Matches if ... doesn't match next. This is a negative lookahead assertion."),
 ("(?<=...)","Matches if the current position in the string is preceded by a match for ... that ends at the current position. This is called a positive lookbehind assertion."),
 ("(?<!...)","Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion."),
@@ -53,19 +53,29 @@
                 <label id="text_label">Your test string:</label>
                 {{ form.test }}
             </div>
-            <div id="result" class="result">
+        </div>
+        <input type="submit" name="submit" class="submit" value="Submit" />
+    </form>
+
+    <div id="result" class="result">
                 <div class="match_list">
                     <h4 class="title">Match Groups</h4>
-                    <div class="list">
-                    </div>
+                        <div class="list">
+                        {% for match_group in match_list %}
+                            {% for matches in match_group %}
+                                <div class="match_group">
+                                Match {{ matches.index }}:
+                                <pre class="match">{% for key, value in matches.items() %}<span class="match_name">{{ key }}.</span>&nbsp;&nbsp;{{ value }}{%  endfor %}</pre>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        </div>
                 </div>
                 <div class="match_text">
                     <h4 class="title">Match text</h4>
-                    <pre class="text"></pre>
+                    <pre class="text">{{ match_text | safe }}</pre>
                 </div>
             </div>
-        </div>
-    </form>
 </div>
 
 <h3 class="reference-heading">Regex quick reference</h3>

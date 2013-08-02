@@ -1,3 +1,4 @@
+from collections import namedtuple
 from flask import jsonify, request
 import re, cgi
 
@@ -105,9 +106,9 @@ def regexp_highlight(regexp, text, html_class="match hilite"):
     return "".join(newtext)
 
 
-def regexp_match_json(form):
+def regexp_match(form):
     """
-    Return a JSON object consisting of a string of formatted html with all sections of the original text
+    Return a named tuple consisting of a string of formatted html with all sections of the original text
     matching the given regular expression wrapped in a span with a highlight class, and all newlines
     converted to breaks; a list of all match groups; and any warnings.
     """
@@ -118,11 +119,24 @@ def regexp_match_json(form):
     warn = ""
     options = option_parse(options)
 
+    Match = namedtuple('Match', ['match_groups', 'match_text', 'warn'])
+
     try:
         compiled = re.compile(pattern, options)
         capture_list = capture_groups(compiled, test_string)
         fulltext = regexp_highlight(compiled, test_string)
-        return jsonify(match_groups=capture_list, match_text=fulltext, warn=warn)
+        match = Match(capture_list, fulltext, warn)
+        return match
     except Exception:
         warn = "Invalid expression"
-        return jsonify(match_groups=[], match_text=cgi.escape(test_string), warn=warn)
+        match = Match([], cgi.escape(test_string), warn)
+        return match
+
+def regexp_match_json(form):
+    """
+    Return a JSON object consisting of a string of formatted html with all sections of the original text
+    matching the given regular expression wrapped in a span with a highlight class, and all newlines
+    converted to breaks; a list of all match groups; and any warnings.
+    """
+    match = regexp_match(form)
+    return jsonify(match_groups=match.match_groups,match_text=match.match_text, warn=match.warn )

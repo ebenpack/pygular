@@ -109,6 +109,8 @@ $(function(){
         regulate();
     });
 
+    $("input[type=submit]").hide();
+
     $(".quickref").hide();
     $(".reference-heading").after(
         $("<a href='#'>").html("[Show]").on('click', function(){
