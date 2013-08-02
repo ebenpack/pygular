@@ -111,6 +111,8 @@ $(function(){
     $(".quickref").hide();
     $(".reference-heading").after(
         $("<a href='#'>").html("[Show]").on('click', function(){
+
+            $(this).text($(".quickref").is(':hidden') ? '[Hide]' : '[Show]');
             $(".quickref").slideToggle();
             return false;
         })
