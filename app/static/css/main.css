@@ -137,6 +137,7 @@ a, a:link {
     border: 10px solid silver;
     overflow: hidden;
     padding: 20px;
+    background-color: #353535;
 }
 
 .reference {
@@ -251,6 +252,31 @@ input:focus, textarea:focus {
 	padding: 2px;
 	margin: 0 2px;
 }
+
+.quickref {
+    -moz-columns: 3;
+    -webkit-columns: 3;
+    columns: 3;
+}
+
+.quickref .entry {
+    clear: both;
+    -webkit-column-break-inside: avoid;
+	break-inside: avoid;
+}
+
+.quickref .character {
+    display: table;
+}
+
+.quickref .definition {
+    display: table;
+}
+
+.quickref code {
+    color: #8D5FB8;
+}
+
 
 h3 {
     text-align: center;

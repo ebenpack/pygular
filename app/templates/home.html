@@ -1,5 +1,38 @@
 {% extends "base.html" %}
 
+{% set reference = [("[abc]","A single character of: a, b or c"),
+("[^abc]","Any single character except: a, b, or c"),
+("[a-z]","Any single character in the range a-z"),
+("[a-zA-Z]","Any single character in the range a-z or A-Z"),
+("^","Start of string, and in MULTILINE mode also matches immediately after each newline."),
+("$","Matches the end of the string or just before the newline at the end of the string, and in MULTILINE mode also matches before a newline."),
+("\A","Start of string."),
+("\z","End of string."),
+(".","Any single character except a newline. If the DOTALL flag has been specified, this matches any character including a newline."),
+("\s","Any whitespace character."),
+("\S","Any non-whitespace character"),
+("\d","Any digit"),
+("\D","Any non-digit"),
+("\w","Any word character (letter, number, underscore)."),
+("\W","Any non-word character"),
+("\b","Any word boundary"),
+("(...)","Matches whatever regular expression is inside the parentheses, and indicates the start and end of a group."),
+("(?:...)","A non-grouping version of regular parentheses."),
+("(?P<name>:...)","A named version of regular parentheses."),
+("(?#:...)","A comment; the contents of the parentheses are simply ignored."),
+("(?=...)","Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion."),
+("(?!...)","Matches if ... doesn't match next. This is a negative lookahead assertion."),
+("(?<=...)","Matches if the current position in the string is preceded by a match for ... that ends at the current position. This is called a positive lookbehind assertion."),
+("(?<!...)","Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion."),
+("(a|b)","a or b"),
+("a?","Zero or one of a"),
+("a*","Zero or more of a"),
+("a+","One or more of a"),
+("a{m}","Exactly m of a"),
+("a{m,}","m or more of a"),
+("a{m,n}","Between m and n of a"),
+("a{m,n}?","As few as possible between m and n of a")] %}
+
 {% block content %}
 <div class="regex_main">
     <form action="" method="POST" id="regex_form" name="regex" class="main_area">
@@ -35,130 +68,14 @@
     </form>
 </div>
 
-<h3>Regex quick reference</h3>
+<h3 class="reference-heading">Regex quick reference</h3>
 <div class="reference">
-    <div id="quickref">
-
-        <div style="float:left">
-
-            <table>
-                <tbody><tr>
-                    <td><code>[abc]</code></td>
-                    <td>A single character of: a, b or c</td>
-                </tr>
-                <tr>
-                    <td><code>[^abc]</code></td>
-                    <td>Any single character except: a, b, or c</td>
-                </tr>
-                <tr>
-                    <td><code>[a-z]</code></td>
-                    <td>Any single character in the range a-z</td>
-                </tr>
-                <tr>
-                    <td><code>[a-zA-Z]</code></td>
-                    <td>Any single character in the range a-z or A-Z</td>
-                </tr>
-                <tr>
-                    <td><code>^</code></td>
-                    <td>Start of line</td>
-                </tr>
-                <tr>
-                    <td><code>$</code></td>
-                    <td>End of line</td>
-                </tr>
-                <tr>
-                    <td><code>\A</code></td>
-                    <td>Start of string</td>
-                </tr>
-                <tr>
-                    <td><code>\z</code></td>
-                    <td>End of string</td>
-                </tr>
-                </tbody></table>
+    <div id="quickref" class="quickref">
+        {% for entry in reference %}
+        <div class="entry">
+            <code>{{ entry[0] }}</code> {{ entry[1] }}
         </div>
-
-        <div style="float:left">
-            <table>
-                <tbody><tr>
-                    <td><code>.</code></td>
-                    <td>Any single character</td>
-                </tr>
-                <tr>
-                    <td><code>\s</code></td>
-                    <td>Any whitespace character</td>
-                </tr>
-                <tr>
-                    <td><code>\S</code></td>
-                    <td>Any non-whitespace character</td>
-                </tr>
-                <tr>
-                    <td><code>\d</code></td>
-                    <td>Any digit</td>
-                </tr>
-                <tr>
-                    <td><code>\D</code></td>
-                    <td>Any non-digit</td>
-                </tr>
-                <tr>
-                    <td><code>\w</code></td>
-                    <td>Any word character (letter, number, underscore)</td>
-                </tr>
-                <tr>
-                    <td><code>\W</code></td>
-                    <td>Any non-word character</td>
-                </tr>
-                <tr>
-                    <td><code>\b</code></td>
-                    <td>Any word boundary</td>
-                </tr>
-                </tbody></table>
-        </div>
-
-        <table>
-            <tbody><tr>
-                <td><code>(...)</code></td>
-                <td>Capture everything enclosed</td>
-            </tr>
-            <tr>
-                <td><code>(a|b)</code></td>
-                <td>a or b</td>
-            </tr>
-            <tr>
-                <td><code>a?</code></td>
-                <td>Zero or one of a</td>
-            </tr>
-            <tr>
-                <td><code>a*</code></td>
-                <td>Zero or more of a</td>
-            </tr>
-            <tr>
-                <td><code>a+</code></td>
-                <td>One or more of a</td>
-            </tr>
-            <tr>
-                <td><code>a{3}</code></td>
-                <td>Exactly 3 of a</td>
-            </tr>
-            <tr>
-                <td><code>a{3,}</code></td>
-                <td>3 or more of a</td>
-            </tr>
-            <tr>
-                <td><code>a{3,6}</code></td>
-                <td>Between 3 and 6 of a</td>
-            </tr>
-            </tbody></table>
-
-{#        <div id="regex_options" style="text-align:center">#}
-{#            <p>#}
-{#                options:#}
-{#                <code>i</code> case insensitive#}
-{#                <code>m</code> make dot match newlines#}
-{#                <code>x</code> ignore whitespace in regex#}
-{#                <code>o</code> perform #{...} substitutions only once#}
-{#            </p>#}
-{#        </div>#}
-
+        {% endfor %}
     </div>
 </div>
 
