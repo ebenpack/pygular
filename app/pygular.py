@@ -55,7 +55,7 @@ def capture_groups(regexp, text):
                     if groupindex and (j+1) in groupindex:
                         newmatch.append({groupindex[(j+1)]: match})
                     else:
-                        newmatch.append({(i+1): match})
+                        newmatch.append({(j+1): match})
                 match_return.append(newmatch)
     return match_return
 
