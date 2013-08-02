@@ -1,17 +1,22 @@
-// function calc_regex() {
-//     var url = "/doregex";
-//     var params = $("#form").serialize();
-//     $.post(url, params, 
-//     function(data) {
-//         $('#id_result').html(data);
-//     }, 
-//     "text"
-//     )
-//     .error(function(data) {
-//         $('#id_result').val("");
-//     }
-//     );
-// }
+
+function show_example() {
+    var $result = $("#result")
+    $result.hide()
+
+    if ( $(".example").length <= 0) {
+        $result.after("<div class='example'>Pygular is a Python-based regular expression editor. It's a handy way to test regular expressions as you write them. To start, enter a regular expression and a test string. Or you can try an <a href='#' class='example_link'>example</a>.</div>");
+        $(".example_link").on('click', function(){
+
+            $("#regex").val("(?P<month>\\d{1,2})\\/(?P<day>\\d{1,2})\\/(?P<year>\\d{4})");
+            $("#test").text("Today's date is: 8/2/2013.");
+            regulate();
+            return false;
+        });
+    }
+    else {
+        $(".example").show();
+    }
+}
 
 function regulate() {
     /**
@@ -30,10 +35,12 @@ function regulate() {
     if (! $regex.val()) {
         $match_text.empty();
         $match_text.text($test_string.val());
+        show_example();
     }
 
     if (! $test_string.val()) {
         $match_text.empty();
+        show_example();
     }
 
     if ($regex.val() && $test_string.val()) {
@@ -44,6 +51,8 @@ function regulate() {
           dataType: 'json',
           success: function(data){
               var match_groups = [];
+              $("#result").show();
+              $(".example").hide();
               $.each(data.match_groups, function(key, val) {
                 match_groups.push(val);
               });
@@ -109,6 +118,8 @@ $(function(){
     });
 
     $("input[type=submit]").hide();
+
+    show_example();
 
     $(".quickref").hide();
     $(".reference-heading").after(

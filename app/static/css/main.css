@@ -262,6 +262,23 @@ input[type=submit] {
 	margin: 0 2px;
 }
 
+.example {
+    width: 100%;
+    margin-top: 30px;
+    min-height: 100px;
+    overflow: hidden;
+    background-color: #c3d5d3;
+    color: #0d0d0d;
+    border: 10px solid #616161;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 10px;
+}
+
+.example a {
+    color: #8D5FB8;
+}
+
 .quickref {
     -moz-columns: 3;
     -webkit-columns: 3;
