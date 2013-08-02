@@ -41,6 +41,7 @@ function regulate() {
           type: "POST",
           url: '/',
           data: req,
+          dataType: 'json',
           success: function(data){
               var match_groups = [];
               $.each(data.match_groups, function(key, val) {
@@ -94,7 +95,7 @@ function regulate() {
                 });
             }
           },
-          dataType: 'json'
+
         });
     }
 }

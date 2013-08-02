@@ -181,6 +181,11 @@ input:focus, textarea:focus {
     height: 30px;
 }
 
+.alert {
+    background-color: #ca3349;
+    color: #b3d4fc;
+}
+
 .warning {
     background-color: #ca3349;
     border: 10px solid #D25252;
@@ -260,7 +265,6 @@ input:focus, textarea:focus {
 }
 
 .quickref .entry {
-    clear: both;
     -webkit-column-break-inside: avoid;
 	break-inside: avoid;
 }
