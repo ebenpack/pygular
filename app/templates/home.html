@@ -26,6 +26,7 @@
 ("(?<!...)","Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion."),
 ("(a|b)","a or b"),
 ("a?","Zero or one of a"),
+("*?, +?, ??", "Makes '*', '+', and '?' qualifiers non-greedy "),
 ("a*","Zero or more of a"),
 ("a+","One or more of a"),
 ("a{m}","Exactly m of a"),
@@ -83,7 +84,7 @@
     <div id="quickref" class="quickref">
         {% for entry in reference %}
         <div class="entry">
-            <code>{{ entry[0] }}</code> {{ entry[1] }}
+            <code>{{ entry[0] }}</code> {{ entry[1]}}
         </div>
         {% endfor %}
     </div>
