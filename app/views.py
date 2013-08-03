@@ -13,9 +13,9 @@ def index():
             return regexp_match_json(form)
         else:
             match = regexp_match(form)
-            return render_template('home.html', form=form, match_list=match.match_groups, match_text=match.match_text)
+            return render_template('home.html', form=form, match_list=match.match_groups, match_text=match.match_text, warn=match.warn)
     else:
-        return render_template('home.html', form=form, match_list="", match_text="")
+        return render_template('home.html', form=form, match_list="", match_text="", warn="")
 
 
 @app.errorhandler(404)

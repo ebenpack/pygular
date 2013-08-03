@@ -50,7 +50,7 @@
                 {{ option }}{{ option.label }}
                 {% endfor %}
             </div>
-            <div id="warning" class="warning"></div>
+            <div id="warning" class="warning" {% if warn %}style="display: block"{% endif %}>{{ warn }}</div>
         </div>
         <div class="test_results">
             <div class="test">
