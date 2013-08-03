@@ -105,20 +105,10 @@ $(function(){
 
     $("input[type=submit]").hide();
 
-    show_example();
-
-    $(".example_link").on('click', function(){
-
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
-        var yyyy = today.getFullYear();
-
-        $("#regex").val("(?P<month>\\d{1,2})\\/(?P<day>\\d{1,2})\\/(?P<year>\\d{4})");
-        $("#test").text("Today's date is: " + mm+'/'+dd+'/'+yyyy);
-        regulate();
-        return false;
-    });
+    if (!($("#regex").val() && $("#test").val())) {
+        show_example();
+    }
+    regulate();
 
     $(".quickref").hide();
     $(".reference-heading").after(
