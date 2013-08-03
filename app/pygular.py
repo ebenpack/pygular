@@ -56,7 +56,7 @@ def capture_groups(regexp, text):
                     if groupindex and (j+1) in groupindex:
                         newmatch.append({groupindex[(j+1)]: match})
                     else:
-                        #If match is None (which is returned the match object group method when a group is contained
+                        # If match is None (which is returned by the match object group() method when a group is contained
                         # in a part of the pattern that did not match), just add an empty string to the match group.
                         # Alternatively, something like "<span class='alert'>No Match</span>" could be returned, but
                         # I'm not sure if that's appropriate/correct or not.
@@ -99,8 +99,6 @@ def regexp_highlight(regexp, text, html_class="match hilite"):
             if i == span_list[-1][1]:
                 newtext.append('</span>')
                 span_list.pop()
-        if c == '\n':
-            newtext.append("<br />")
         else:
             newtext.append(cgi.escape(c))
     return "".join(newtext)
