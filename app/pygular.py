@@ -99,8 +99,7 @@ def regexp_highlight(regexp, text, html_class="match hilite"):
             if i == span_list[-1][1]:
                 newtext.append('</span>')
                 span_list.pop()
-        else:
-            newtext.append(cgi.escape(c))
+        newtext.append(cgi.escape(c))
     return "".join(newtext)
 
 
