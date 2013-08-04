@@ -68,13 +68,22 @@
                 {% for match_group in match_list %}
                     <div class="match_group" id="match_group{{ loop.index0 }}">
                     Match {{ loop.index }}:
+                    <table>
+                    <tbody>
                     {% for matches in match_group %}
-                        <pre class="match">{% for key, value in matches.items() %}<span class="match_name">{{ key }}.</span>&nbsp;&nbsp;{{ value }}{%  endfor %}</pre>
+                        <tr>
+                        {% for key, value in matches.items() %}
+                            <td class="match_name"><span class="{% if key is string %}{{ "hilite" }}{% endif %}">{{ key }}</span></td>
+                            <td>{{ value }}{%  endfor %}</td>
+                        </tr>
                     {% endfor %}
+                    </tbody>
+                    </table>
                     </div>
                 {% endfor %}
                 </div>
         </div>
+
         <div class="match_text">
             <h4 class="title">Match text</h4>
             <pre class="text">{{ match_text | safe }}</pre>

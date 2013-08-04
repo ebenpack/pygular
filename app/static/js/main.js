@@ -43,27 +43,28 @@ function regulate() {
                 match_groups.push(val);
               });
 
-            $('#result .match_list .list').empty();
+            $("#result .match_list .list").empty();
             // Build match group lists
             // This feels wrong. Surely there's a better way to do this. Been working on this too long now.
             if (match_groups.length > 0) {
-
                 for (var i = 0; i < match_groups.length; i++) {
-                    $('#result .match_list .list').append($('<div/>', {'class': 'match_group', 'id': 'match_group' + i,  html: 'Match ' + (i + 1) + ':'}).append(
-
-                    ));
+                    $("#result .match_list .list").append($('<div/>', {'class': 'match_group', 'id': 'match_group' + i,  html: 'Match ' + (i + 1) + ':'}));
+                    $('#match_group' + i).append($("<table><tbody>"));
                     for (var j = 0; j < match_groups[i].length; j++)
                         {
-                            var match = ""
+                            var match = "";
+                            var match_class = "";
                             $.each(
                                     match_groups[i][j], function(key, val){
-                                        match = "<span class='match_name'>" + key + ".</span>" + '&nbsp;&nbsp;' + val;
+                                        if (isNaN(key))
+                                            {match_class = "hilite"};
+                                        match = "<td class='match_name'><span class='" + match_class + "'>" + key + ".</span></td>" + '<td>' + val + '</td>';
                                     });
 
-                            $('<pre/>',
+                            $('<tr/>',
                                 {html: match,
                                 'class': 'match'
-                                }).appendTo($('#match_group' + i));
+                                }).appendTo($('#match_group' + i + " tbody"));
                         }
                 }
             }

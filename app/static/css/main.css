@@ -248,6 +248,15 @@ input[type=submit] {
     margin: 0 0 0 20px;
 }
 
+/*.match_group .match_name span  {*/
+    /*background-color: #c3d5d3;*/
+    /*color: #1D1D1C;*/
+/*}*/
+
+.match_group .match_name {
+    padding-right: 10px;
+}
+
 .match_text {
     margin-left: 10px;
     word-break: break-all;
