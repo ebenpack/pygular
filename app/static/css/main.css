@@ -286,8 +286,6 @@ input[type=submit] {
     background-color: #c3d5d3;
     color: #0d0d0d;
     border: 10px solid #616161;
-    box-sizing: border-box;
-	-moz-box-sizing: border-box;
     text-align: center;
     padding: 10px;
 }
