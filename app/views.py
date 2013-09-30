@@ -6,10 +6,19 @@ from forms import RegExForm
 from app import app
 import datetime, json
 
+def request_wants_json():
+    """
+    Return HTML where appropriate, and JSON otherwise.
+    http://flask.pocoo.org/snippets/45/
+    """
+    best = request.accept_mimetypes \
+        .best_match(['application/json', 'text/html'])
+    return best == 'application/json' and \
+           request.accept_mimetypes[best] > \
+           request.accept_mimetypes['text/html']
 
 def regexp_page():
     form = RegExForm(request.form)
-
     if form.validate_on_submit() or session.get("messages"):
         if session.get("messages"):
             message = json.loads(session["messages"])
@@ -20,10 +29,10 @@ def regexp_page():
             regex = RegEx(form)
         else:
             regex = RegEx(form)
-        if regex.request_wants_json():
-            return regex.regexp_match_json(form)
+        if request_wants_json():
+            return regex.regexp_match_json()
         else:
-            match = regex.regexp_match(form)
+            match = regex.regexp_match()
             return render_template('home.html', form=form, match_list=match.match_groups, match_text=match.match_text, warn=match.warn)
     else:
         return render_template('home.html', form=form, match_list="", match_text="", warn="")

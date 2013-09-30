@@ -10,36 +10,24 @@ class RegEx(object):
         self.options = form.data['options']
         self.test_string = form.data['test']
         self.warn = ""
+        self.flags = self.compile_flags()
+        self.compiled = self.compile_re()
 
-    @property
-    def flags(self):
+    def compile_flags(self):
         flags = {'L': re.L, 'm': re.M, 's': re.S, 'u': re.U, 'i': re.I, 'x': re.X}
         re_flags = 0
-        #if self.options:
-        for option in self.options:
-            re_flags = re_flags | flags[option]
+        if self.options:
+            for option in self.options:
+                re_flags = re_flags | flags[option]
         return re_flags
 
-    @property
-    def compiled(self):
+    def compile_re(self):
         try:
             compiled = re.compile(self.pattern, self.flags)
             return compiled
         except re.error:
             self.warn = "Invalid expression"
             self.match = Match([], cgi.escape(self.test_string), self.warn)
-
-
-    def request_wants_json(self):
-        """
-        Return HTML where appropriate, and JSON otherwise.
-        http://flask.pocoo.org/snippets/45/
-        """
-        best = request.accept_mimetypes \
-            .best_match(['application/json', 'text/html'])
-        return best == 'application/json' and \
-               request.accept_mimetypes[best] > \
-               request.accept_mimetypes['text/html']
 
 
     def capture_groups(self):
@@ -96,8 +84,8 @@ class RegEx(object):
         # Reverse span_list so we can pop
         span_list.reverse()
 
-        # TODO: I would like to remove the repetition of "if not span_list". Too tired now to think about it.
-        for i, c in enumerate(self.test_string):
+        # TODO: Can I remove the repetition of "if not span_list"?
+        for i, char in enumerate(self.test_string):
             if not span_list:
                 return "".join(newtext) + cgi.escape(self.test_string[i:])
             if i == span_list[-1][0]:
@@ -112,31 +100,31 @@ class RegEx(object):
                 if i == span_list[-1][1]:
                     newtext.append('</span>')
                     span_list.pop()
-            newtext.append(cgi.escape(c))
+            newtext.append(cgi.escape(char))
         return "".join(newtext)
 
 
-    def regexp_match(self, form):
+    def regexp_match(self):
         """
         Return a named tuple consisting of a string of formatted html with all sections of the original text
         matching the given regular expression wrapped in a span with a highlight class, and all newlines
         converted to breaks; a list of all match groups; and any warnings.
         """
-        try:
+        if self.compiled:
             capture_list = self.capture_groups()
             fulltext = self.regexp_highlight()
             match = Match(capture_list, fulltext, self.warn)
             return match
-        except re.error:
+        else:
             self.warn = "Invalid expression"
             match = Match([], cgi.escape(self.test_string), self.warn)
             return match
 
-    def regexp_match_json(self, form):
+    def regexp_match_json(self):
         """
         Return a JSON object consisting of a string of formatted html with all sections of the original text
         matching the given regular expression wrapped in a span with a highlight class, and all newlines
         converted to breaks; a list of all match groups; and any warnings.
         """
-        match = self.regexp_match(form)
+        match = self.regexp_match()
         return jsonify(match_groups=match.match_groups,match_text=match.match_text, warn=match.warn )

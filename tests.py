@@ -2,7 +2,7 @@
 
 import unittest
 from app import app
-
+from forms import RegExForm
 from coverage import coverage
 cov = coverage(branch = True, omit = ['flask/*', 'tests.py'])
 cov.start()
@@ -17,7 +17,7 @@ class TestCase(unittest.TestCase):
         pass
 
     def test_regexp_highlight(self):
-        pass
+        form = RegExForm(request.form)
 
 if __name__ == '__main__':
     try:
