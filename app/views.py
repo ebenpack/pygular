@@ -1,5 +1,7 @@
 from flask import render_template, request, redirect, url_for, session
+
 from pygular import regexp_match, regexp_match_json, request_wants_json
+
 from forms import RegExForm
 from app import app
 import datetime, json

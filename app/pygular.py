@@ -3,6 +3,33 @@ from flask import jsonify, request
 import re, cgi
 
 
+class RegExp(object):
+    def __init__(self, form):
+        self.pattern = form.data['regex']
+        self.options = form.data['options']
+        self.test_string = form.data['test']
+        self.warn = ""
+
+    @property
+    def options(self):
+        flags = {'L': re.L, 'm': re.M, 's': re.S, 'u': re.U, 'i': re.I, 'x': re.X}
+        re_flags = 0
+        if self.options:
+            for option in self.options:
+                re_flags = re_flags | flags[option]
+        return re_flags
+
+    def request_wants_json():
+        """
+        Return HTML where appropriate, and JSON otherwise.
+        http://flask.pocoo.org/snippets/45/
+        """
+        best = request.accept_mimetypes \
+            .best_match(['application/json', 'text/html'])
+        return best == 'application/json' and \
+               request.accept_mimetypes[best] > \
+               request.accept_mimetypes['text/html']
+
 def request_wants_json():
     """
     Return HTML where appropriate, and JSON otherwise.
