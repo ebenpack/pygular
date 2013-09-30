@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, session
 
-from pygular import regexp_match, regexp_match_json, request_wants_json
+from pygular import RegEx
 
 from forms import RegExForm
 from app import app
@@ -9,16 +9,21 @@ import datetime, json
 
 def regexp_page():
     form = RegExForm(request.form)
+
     if form.validate_on_submit() or session.get("messages"):
         if session.get("messages"):
             message = json.loads(session["messages"])
-            form.regex.data = message["re"]
-            form.test.data = message["test_string"]
+            form.regex.data = message.get("re")
+            form.test.data = message.get("test_string")
+            form.options.data = message.get("options")
             del session["messages"]
-        if request_wants_json():
-            return regexp_match_json(form)
+            regex = RegEx(form)
         else:
-            match = regexp_match(form)
+            regex = RegEx(form)
+        if regex.request_wants_json():
+            return regex.regexp_match_json(form)
+        else:
+            match = regex.regexp_match(form)
             return render_template('home.html', form=form, match_list=match.match_groups, match_text=match.match_text, warn=match.warn)
     else:
         return render_template('home.html', form=form, match_list="", match_text="", warn="")
