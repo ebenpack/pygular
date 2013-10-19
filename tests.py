@@ -60,6 +60,30 @@ class RegEx(unittest.TestCase):
             warn='')
         self.assertEqual(test_match, match_results)
 
+    def text_regexp_roman_numerals(self):
+        options = re.VERBOSE
+        pattern = u"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$"
+        test_string = u"MMMMDCCCLXXXVIII"
+
+        RegEx = pygular.RegEx(pattern, options, test_string)
+        test_match = RegEx.regexp_match()
+        match_results = pygular.Match(
+            match_groups=[ [{1:u"DCCC"}, {2:u"LXXX"}, {3:u"VIII"}] ],
+            match_text=u'<span class="match hilite">MMMMDCCCLXXXVIII</span>',
+            warn='')
+        self.assertEqual(test_match, match_results)
+
+
+# TODO: Add tests for the following:
+# (...) Matches whatever regular expression is inside the parentheses, and indicates the start and end of a group.
+# (?:...) A non-grouping version of regular parentheses.
+# (?#...) A comment; the contents of the parentheses are simply ignored.
+# (?=..) Matches if ... matches next, but doesn't consume any of the string. This is called a lookahead assertion.
+# (?!...) Matches if ... doesn't match next. This is a negative lookahead assertion.
+# (?<=...) Matches if the current position in the string is preceded by a match for ... that ends at the current position. This is called a positive lookbehind assertion.
+# (?<!...) Matches if the current position in the string is not preceded by a match for .... This is called a negative lookbehind assertion.
+# (?(id/name)yes-pattern|no-pattern) Will try to match with yes-pattern if the group with given id or name exists, and with no-pattern if it doesn’t.
+
 if __name__ == '__main__':
     try:
         unittest.main()
