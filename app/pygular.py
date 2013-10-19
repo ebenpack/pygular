@@ -1,14 +1,14 @@
 from collections import namedtuple
-from flask import jsonify, request
+from flask import jsonify
 import re, cgi
 
 Match = namedtuple('Match', ['match_groups', 'match_text', 'warn'])
 
 class RegEx(object):
-    def __init__(self, form):
-        self.pattern = form.data['regex']
-        self.options = form.data['options']
-        self.test_string = form.data['test']
+    def __init__(self, pattern, options, test_string):
+        self.pattern = pattern
+        self.options = options
+        self.test_string = test_string
         self.warn = ""
         self.flags = self.compile_flags()
         self.compiled = self.compile_re()
@@ -39,12 +39,10 @@ class RegEx(object):
         matchlist = self.compiled.finditer(self.test_string)
         match_return = []
 
-        # matches = regexp.findall(text)
-        groupindex = self.compiled.groupindex
-
         # Is there any situation where two or more names would map to the same group number (i.e. group numbers not unique)?
 
         if matchlist:
+            matchlist = list(matchlist)
             for i, group in enumerate(matchlist):
                 newmatch = []
                 if not group.groups():
@@ -78,29 +76,19 @@ class RegEx(object):
         matchlist = self.compiled.finditer(self.test_string)
         span_list = []
         newtext = []
+
         for match in matchlist:
             span_list.append(match.span())
 
-        # Reverse span_list so we can pop
-        span_list.reverse()
+        if not span_list:
+            return cgi.escape(self.test_string)
 
-        # TODO: Can I remove the repetition of "if not span_list"?
-        for i, char in enumerate(self.test_string):
-            if not span_list:
-                return "".join(newtext) + cgi.escape(self.test_string[i:])
-            if i == span_list[-1][0]:
-                newtext.append('<span class="' + html_class + '">')
-            if i == span_list[-1][1]:
-                newtext.append('</span>')
-                span_list.pop()
-                if not span_list:
-                    return "".join(newtext) + cgi.escape(self.test_string[i:])
-                if i == span_list[-1][0]:
-                    newtext.append('<span class="' + html_class + '">')
-                if i == span_list[-1][1]:
-                    newtext.append('</span>')
-                    span_list.pop()
-            newtext.append(cgi.escape(char))
+        cursor = 0
+        for span in span_list:
+            newtext.append(cgi.escape(self.test_string[cursor:span[0]]))
+            newtext.extend(['<span class="{}">'.format(html_class), cgi.escape(self.test_string[span[0]:span[1]]),'</span>'])
+            cursor = span[1]
+        newtext.append(cgi.escape(self.test_string[cursor:]))
         return "".join(newtext)
 
 
@@ -116,7 +104,6 @@ class RegEx(object):
             match = Match(capture_list, fulltext, self.warn)
             return match
         else:
-            self.warn = "Invalid expression"
             match = Match([], cgi.escape(self.test_string), self.warn)
             return match
 

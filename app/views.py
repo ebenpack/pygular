@@ -26,9 +26,11 @@ def regexp_page():
             form.test.data = message.get("test_string")
             form.options.data = message.get("options")
             del session["messages"]
-            regex = RegEx(form)
-        else:
-            regex = RegEx(form)
+
+        pattern = form.data['regex']
+        options = form.data['options']
+        test_string = form.data['test']
+        regex = RegEx(pattern, options, test_string)
         if request_wants_json():
             return regex.regexp_match_json()
         else:
@@ -36,6 +38,7 @@ def regexp_page():
             return render_template('home.html', form=form, match_list=match.match_groups, match_text=match.match_text, warn=match.warn)
     else:
         return render_template('home.html', form=form, match_list="", match_text="", warn="")
+
 
 # @app.route('/index', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
@@ -45,7 +48,7 @@ def index():
 
 @app.route('/example')
 def example():
-    date = datetime.datetime.now().strftime("%d/%m/%Y")
+    date = datetime.datetime.now().strftime("%m/%d/%Y")
     re = "(?P<month>\\d{1,2})\\/(?P<day>\\d{1,2})\\/(?P<year>\\d{4})"
     test_string = "Today's date is " + date + "."
     messages = json.dumps({"re": re, "test_string": test_string})
