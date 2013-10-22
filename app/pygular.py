@@ -53,17 +53,17 @@ class RegEx(object):
                     groupindex = {v:k for k, v in self.compiled.groupindex.items()}
                     for j, match in enumerate(group.groups()):
                         if groupindex and (j+1) in groupindex:
-                            newmatch.append({groupindex[(j+1)]: match})
+                            newmatch.append({"title":groupindex[(j+1)], "value":match})
                         else:
                             # If match is None (which is returned by the match object group() method when a group is contained
                             # in a part of the pattern that did not match), just add an empty string to the match group.
                             # Alternatively, something like "<span class='alert'>No Match</span>" could be returned, but
                             # I'm not sure if that's appropriate/correct or not.
                             if not match:
-                                newmatch.append({(j+1): ""})
+                                newmatch.append({"title":(j+1), "value":""})
                             else:
-                                newmatch.append({(j+1): match})
-                    match_return.append(newmatch)
+                                newmatch.append({"title":(j+1),"value": match})
+                    match_return.append({"match": newmatch})
         return match_return
 
 
@@ -86,7 +86,7 @@ class RegEx(object):
         cursor = 0
         for span in span_list:
             newtext.append(cgi.escape(self.test_string[cursor:span[0]]))
-            newtext.extend(['<span class="{}">'.format(html_class), cgi.escape(self.test_string[span[0]:span[1]]),'</span>'])
+            newtext.extend(["<span class='{}'>".format(html_class), cgi.escape(self.test_string[span[0]:span[1]]),"</span>"])
             cursor = span[1]
         newtext.append(cgi.escape(self.test_string[cursor:]))
         return "".join(newtext)
@@ -114,4 +114,4 @@ class RegEx(object):
         converted to breaks; a list of all match groups; and any warnings.
         """
         match = self.regexp_match()
-        return jsonify(match_groups=match.match_groups,match_text=match.match_text, warn=match.warn )
+        return jsonify(matchgroups=match.match_groups,matchtext=match.match_text, warning=match.warn )

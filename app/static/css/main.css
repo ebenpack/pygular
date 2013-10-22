@@ -204,7 +204,6 @@ input[type=submit] {
     float: right;
     padding: 10px;
     margin-top: 10px;
-    display: none;
 }
 
 .test_results {
