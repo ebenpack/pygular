@@ -38,7 +38,9 @@
 ("a{m,n}?","As few as possible between m and n of a")] %}
 
 {% block content %}
+{# REGEX MAIN #}
 <div class="regex_main">
+
     <form action="/" method="POST" id="regex_form" name="regex" class="regex_form">
         {{ form.hidden_tag() }}
         <label id="regex_label">Your regular expression:</label>
@@ -61,34 +63,65 @@
         <input type="submit" name="submit" class="submit" value="Submit" />
     </form>
 
+    {# RESULTS#}
     <div id="result" class="result" >
+        {# MATCH GROUPS #}
         <div class="match_list">
             <h4 class="title">Match Groups</h4>
-                <div data-bind="foreach: { data: matchgroups, as: 'matchgroups' }" class="list">
+                    {# NOSCRIPT #}
+                    <noscript>
+                        <div class="list">
+                            {% for match_group in match_list %}
+                                <div class="match_group" id="match_group{{ loop.index0 }}">
+                                Match {{ loop.index }}:
+                                    <table>
+                                        <tbody>
+                                        {% for match in match_group.match %}
+                                            <tr>
+                                                <td class="match_name"><span class="{% if match.title is string %}{{ "hilite" }}{% endif %}">{{ match.title }}</span></td>
+                                                <td>{{ match.value }}{%  endfor %}</td>
+                                            </tr>
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </noscript>
+                    {# NOSCRIPT #}
+                    {# SCRIPT #}
+                <div data-bind="foreach: { data: matchgroups, as: 'matchgroups' }" class="list js">
                     <div class="match_group" id="match_group">
-                    Match <span data-bind="text: $index() + 1"></span>:
-                    <table>
-                    <tbody data-bind="foreach: { data: matchgroups.match, as: 'match' }">
-                        <tr>
-                            <td data-bind="text: match.title" class="match_name"></td>
-                            <td data-bind="text: match.value"></td>
-                        </tr>
-                    </tbody>
-                    </table>
+                        Match <span data-bind="text: $index() + 1"></span>:
+                        <table>
+                            <tbody data-bind="foreach: { data: matchgroups.match, as: 'match' }">
+                                <tr>
+                                    <td><span data-bind="text: match.title, css: { hilite: isNaN(match.title()) }" class="match_name"></span></td>
+                                    <td data-bind="text: match.value"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                    {# /SCRIPT #}
                 </div>
+                
         </div>
+        {# /MATCH GROUPS #}
 
+        {# MATCH TEXT #}
         <div class="match_text">
             <h4 class="title">Match text</h4>
             <pre class="text" data-bind="html: matchtext">{{ match_text | safe }}</pre>
         </div>
+        {# /MATCH TEXT #}
     </div>
+    {# /RESULTS #}
 
     <div class="example" {% if match_text %}style=""{% endif %}>
             Pygular is a Python-based regular expression editor. It's a handy way to test regular expressions as you write them. To start, enter a regular expression and a test string. Or you can try an <a href='/example' class='example_link'>example</a>.
     </div>
 </div>
+{# /REGEX MAIN #}
 
 
 <div class="reference">

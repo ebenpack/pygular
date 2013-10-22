@@ -22,9 +22,8 @@ ko.applyBindings(vm);
 
 var re_json = function() {
 	var req = $('#regex_form').serialize();
-    var $regex = $('#regex')
-    var $test_string = $('#test')
-
+    var $regex = $('#regex');
+    var $test_string = $('#test');
 
     if ($regex.val() && $test_string.val()) {
 		$.ajax({
@@ -39,11 +38,12 @@ var re_json = function() {
 			}
 		);
 	}
-}
+};
 
 $(function(){
+	$(".js").css("display", "block");
 	$("input[type=submit]").hide();
-	
+
     $("#regex, #test").keyup(function(){
 		re_json();
     });
@@ -66,5 +66,4 @@ $(function(){
             return false;
         })
     );
-	
 });

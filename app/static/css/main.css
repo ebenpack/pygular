@@ -1,4 +1,3 @@
-/* line 17, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -19,69 +18,55 @@ time, mark, audio, video {
   font-size: 100%;
   vertical-align: baseline; }
 
-/* line 22, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1; }
 
-/* line 24, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none; }
 
-/* line 26, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-/* line 28, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle; }
 
-/* line 30, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none; }
-  /* line 103, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
   q:before, q:after, blockquote:before, blockquote:after {
     content: "";
     content: none; }
 
-/* line 32, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none; }
 
-/* line 116, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block; }
 
-/* line 14, ../sass/susy/_grid.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 24, ../sass/main.scss */
 body {
   background-color: #272822;
   color: #a4d6cf;
   font-family: helvetica, sans-serif; }
 
-/* line 30, ../sass/main.scss */
 a, a:link {
   text-decoration: none;
   color: #e8e2b7; }
 
-/* line 35, ../sass/main.scss */
 .hilite {
   background-color: #c3d5d3;
   color: #1D1D1C; }
 
-/* line 40, ../sass/main.scss */
 .alert {
   background-color: #ca3349;
   color: #b3d4fc; }
 
-/* line 45, ../sass/main.scss */
 .warning {
   background-color: #ca3349;
   border: 10px solid #db6f7f;
@@ -90,7 +75,6 @@ a, a:link {
   padding: 10px;
   margin-top: 10px; }
 
-/* line 55, ../sass/main.scss */
 input, textarea {
   outline: none;
   border: 1px solid #5c77bf;
@@ -99,15 +83,12 @@ input, textarea {
   -webkit-transition: all 0.15s ease-in-out;
   -moz-transition: all 0.15s ease-in-out;
   color: #ccccc8; }
-  /* line 63, ../sass/main.scss */
   input:focus, textarea:focus {
     border: 1px solid #5c77bf;
     background-color: #4A4A4A; }
-  /* line 67, ../sass/main.scss */
   input[type=submit], textarea[type=submit] {
     margin-top: 10px; }
 
-/* line 72, ../sass/main.scss */
 .container {
   *zoom: 1;
   max-width: 61em;
@@ -117,27 +98,22 @@ input, textarea {
   margin-left: auto;
   margin-right: auto;
   margin: 0 auto; }
-  /* line 38, ../../../../../../../Applications/CodeKit.app/Contents/Resources/engines/compass/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
   .container:after {
     content: "";
     display: table;
     clear: both; }
 
-/* line 78, ../sass/main.scss */
 .header {
   background: url("/static/images/snout.png") no-repeat center bottom;
   text-align: center;
   color: #5c77bf;
   margin-top: 20px; }
-  /* line 83, ../sass/main.scss */
   .header > .title {
     margin-bottom: 10px;
     margin-top: 0; }
-  /* line 87, ../sass/main.scss */
   .header .main-title {
     font-size: 60px; }
 
-/* line 92, ../sass/main.scss */
 .regex_main, .main_404, .reference {
   border: 10px solid #dadbd4;
   overflow: hidden;
@@ -145,37 +121,31 @@ input, textarea {
   background-color: #2f3029;
   margin-bottom: .5em; }
 
-/* line 101, ../sass/main.scss */
 .regex_main #regex {
   width: 100%;
-  height: 36px; }
-/* line 105, ../sass/main.scss */
+  height: 36px;
+  margin-top: 0.5em; }
 .regex_main .options_warning {
   overflow: hidden;
   height: 80px; }
-/* line 110, ../sass/main.scss */
 .regex_main .options {
   float: left;
   margin-top: 10px;
   padding-top: 20px;
   height: 30px; }
-/* line 116, ../sass/main.scss */
 .regex_main .test_results {
   clear: both; }
-/* line 121, ../sass/main.scss */
 .regex_main #test {
   width: 100%;
   min-height: 130px;
-  margin-bottom: 1.5em; }
-/* line 127, ../sass/main.scss */
+  margin-bottom: 0.5em;
+  margin-top: 0.5em; }
 .regex_main .result {
   margin-top: 30px;
   min-height: 100px;
   overflow: hidden; }
-  /* line 132, ../sass/main.scss */
   .regex_main .result .title {
     margin: 0; }
-  /* line 135, ../sass/main.scss */
   .regex_main .result .match_list, .regex_main .result .match_text {
     width: 100%;
     float: left;
@@ -183,48 +153,39 @@ input, textarea {
     display: inline;
     margin-bottom: 0.5em; }
     @media (min-width: 40em) {
-      /* line 135, ../sass/main.scss */
       .regex_main .result .match_list, .regex_main .result .match_text {
         width: 49.15254%;
         float: left;
         margin-right: 1.69492%; } }
-    /* line 141, ../sass/main.scss */
     .regex_main .result .match_list .list, .regex_main .result .match_list .text, .regex_main .result .match_text .list, .regex_main .result .match_text .text {
       background-color: #1f201b;
       min-height: 100px;
       border: 10px solid #3d3e35;
-      padding: 0.5em; }
-    /* line 148, ../sass/main.scss */
+      padding: 0.5em;
+      margin-top: 0.5em; }
+    .regex_main .result .match_list .js, .regex_main .result .match_text .js {
+      display: none; }
     .regex_main .result .match_list .list ol, .regex_main .result .match_text .list ol {
       margin: 0.25em 0; }
-  /* line 153, ../sass/main.scss */
   .regex_main .result .match_group {
     margin-bottom: 6px; }
-    /* line 155, ../sass/main.scss */
     .regex_main .result .match_group .match {
       margin: 0 0 0 20px; }
-    /* line 158, ../sass/main.scss */
-    .regex_main .result .match_group .match_name {
-      padding-right: 10px; }
-    /* line 161, ../sass/main.scss */
+    .regex_main .result .match_group td {
+      padding: 0 10px 10px 0; }
     .regex_main .result .match_group table {
+      margin-top: 0.5em;
       margin-left: 2em; }
-  /* line 165, ../sass/main.scss */
   .regex_main .result .match_text {
     float: right;
     margin-right: 0;
     *margin-left: -1em;
     display: inline;
     word-break: break-all; }
-    /* line 168, ../sass/main.scss */
-    .regex_main .result .match_text .text {
-      margin: 0; }
-    /* line 171, ../sass/main.scss */
     .regex_main .result .match_text .match {
       padding: 2px;
       margin: 0 2px; }
 
-/* line 179, ../sass/main.scss */
 .example {
   width: 100%;
   margin-top: 30px;
@@ -236,37 +197,28 @@ input, textarea {
   text-align: center;
   padding: 10px; }
 
-/* line 191, ../sass/main.scss */
 .reference {
   font-size: 14px;
   color: #ccccc8; }
-  /* line 192, ../sass/main.scss */
   .reference h3 {
     text-align: center; }
-  /* line 197, ../sass/main.scss */
   .reference a {
     color: #e8e2b7; }
-  /* line 200, ../sass/main.scss */
   .reference .quickref {
     -moz-columns: 3;
     -webkit-columns: 3;
     columns: 3;
     margin-top: 0.5em; }
-  /* line 207, ../sass/main.scss */
   .reference .quickref .entry {
     -webkit-column-break-inside: avoid;
     break-inside: avoid; }
-  /* line 212, ../sass/main.scss */
   .reference .quickref .character {
     display: table; }
-  /* line 216, ../sass/main.scss */
   .reference .quickref .definition {
     display: table; }
-  /* line 220, ../sass/main.scss */
   .reference .quickref code {
     color: #8d5fb8; }
 
-/* line 225, ../sass/main.scss */
 footer {
   font-size: .8em;
   text-align: center;

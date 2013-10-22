@@ -1,5 +1,5 @@
 #TODO
-* Complete more rigorous testing.
+* Fix templates for noscript
 * Clear fields button
 * Dropdown expression toolbar (a la http://gskinner.com/RegExr/)
 * Make permalink button?
@@ -7,6 +7,7 @@
 * Show invisibles?
 * DEBUG flag?
 * (Long-term goal/pipe dream) Translate regexes into plain English, like [RegexBuddy](http://www.regexbuddy.com/).
+* ~~Complete more rigorous testing.~~
 * ~~Named groups (match.groupdict())~~
 * ~~Submit button/noscript version~~
 * ~~Implement groups/backreferences.~~

@@ -101,6 +101,7 @@ input, textarea {
     #regex {
         width: 100%;
         height: 36px;
+        margin-top: 0.5em;
     }
     .options_warning {
         overflow: hidden;
@@ -121,7 +122,8 @@ input, textarea {
     #test {
         width: 100%;
         min-height: 130px;
-        margin-bottom: 1.5em;
+        margin-bottom: 0.5em;
+        margin-top: 0.5em;
     }
 
     .result {
@@ -138,11 +140,15 @@ input, textarea {
                 @include span-columns(6,12)
             }
             margin-bottom: 0.5em;
-            .list, .text  {
+            .list, .text {
                 background-color: darken($color-primary, 3%);
                 min-height: 100px;
                 border: 10px solid lighten($color-primary, 8%);
                 padding: 0.5em;
+                margin-top: 0.5em;
+            }
+            .js {
+                display: none;
             }
             .list {
                 ol {
@@ -155,19 +161,17 @@ input, textarea {
             .match {
                 margin: 0 0 0 20px;
             }
-            .match_name {
-                padding-right: 10px;
+            td {
+                padding: 0 10px 10px 0;
             }
             table {
+                margin-top: 0.5em;
                 margin-left: 2em;
             }
         }
         .match_text {
             @include omega;
             word-break: break-all;
-            .text {
-                margin: 0;
-            }
             .match {
                 padding: 2px;
                 margin: 0 2px;
