@@ -39,7 +39,7 @@
 
 {% block content %}
 <div class="regex_main">
-    <form action="/" method="POST" id="regex_form" name="regex" class="main_area">
+    <form action="/" method="POST" id="regex_form" name="regex" class="regex_form">
         {{ form.hidden_tag() }}
         <label id="regex_label">Your regular expression:</label>
         <br />
@@ -90,8 +90,9 @@
     </div>
 </div>
 
-<h3 class="reference-heading">Regex quick reference</h3>
+
 <div class="reference">
+    <h3 class="reference-heading">Regex quick reference</h3>
     <div id="quickref" class="quickref">
         {% for entry in reference %}
         <div class="entry">
