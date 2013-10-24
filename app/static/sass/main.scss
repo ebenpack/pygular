@@ -81,11 +81,12 @@ input, textarea {
     color: $color-secondary;
     margin-top: 20px;
     & > .title {
+        font-size: 1.6em;
         margin-bottom: 10px;
         margin-top: 0;
     }
     .main-title {
-        font-size: 60px;
+        font-size: 3.7em;
     }
 }
 
@@ -113,6 +114,9 @@ input, textarea {
         margin-top: 10px;
         padding-top: 20px;
         height: 30px;
+        label {
+            margin-left: 0.5em;
+        }
     }
     .test_results {
 
@@ -190,6 +194,9 @@ input, textarea {
     border: 10px solid #616161;
     text-align: center;
     padding: 10px;
+    a {
+        color: $color-text-alternate;
+    }
 }
 
 .reference {

@@ -109,10 +109,11 @@ input, textarea {
   color: #5c77bf;
   margin-top: 20px; }
   .header > .title {
+    font-size: 1.6em;
     margin-bottom: 10px;
     margin-top: 0; }
   .header .main-title {
-    font-size: 60px; }
+    font-size: 3.7em; }
 
 .regex_main, .main_404, .reference {
   border: 10px solid #dadbd4;
@@ -133,6 +134,8 @@ input, textarea {
   margin-top: 10px;
   padding-top: 20px;
   height: 30px; }
+  .regex_main .options label {
+    margin-left: 0.5em; }
 .regex_main .test_results {
   clear: both; }
 .regex_main #test {
@@ -196,6 +199,8 @@ input, textarea {
   border: 10px solid #616161;
   text-align: center;
   padding: 10px; }
+  .example a {
+    color: #8d5fb8; }
 
 .reference {
   font-size: 14px;
