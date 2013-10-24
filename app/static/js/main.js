@@ -21,9 +21,24 @@ ko.applyBindings(vm);
 
 
 var re_json = function() {
+    var $match_text = $("#result .text");
+    var $match_list = $('#result .match_list');
+
 	var req = $('#regex_form').serialize();
     var $regex = $('#regex');
     var $test_string = $('#test');
+
+    // Hide results if inputs are empty
+    if (! $regex.val()) {
+        $match_text.empty();
+        $match_text.text($test_string.val());
+        show_example();
+    }
+
+    if (! $test_string.val()) {
+        $match_text.empty();
+        show_example();
+    }
 
     if ($regex.val() && $test_string.val()) {
 		$.ajax({
@@ -41,6 +56,8 @@ var re_json = function() {
 };
 
 $(function(){
+    // Show match group block which is hidden for noscript
+    // and hide submit button
 	$(".js").css("display", "block");
 	$("input[type=submit]").hide();
 
@@ -57,6 +74,7 @@ $(function(){
     }
     re_json();
 
+    // Show/hide quickref
     $(".quickref").hide();
     $(".reference-heading").after(
         $("<a href='#'>").html("[Show]").on('click', function(){
