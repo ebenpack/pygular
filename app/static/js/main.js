@@ -42,22 +42,38 @@ var re_json = function() {
 
     if ($regex.val() && $test_string.val()) {
 		$.ajax({
-				type: "POST",
-				url: '/',
-				data: req,
-				dataType: 'json',
-				success: function(data) {
-					hide_example();
-					ko.mapping.fromJS(data, {}, vm);
-				}
-			}
-		);
+            type: "POST",
+            url: '/',
+            data: req,
+            dataType: 'json',
+            success: function(data) {
+                hide_example();
+                ko.mapping.fromJS(data, {}, vm);
+            }
+        });
 	}
 };
 
+var update_csrf = function() {
+    // Update CSRF token every 28 minutes, otherwise form won't validate and AJAX POST requests will fail silently
+    // (and match results won't get updated and app will stop working)
+    $.ajax({
+        url: "/",
+        success: function(data) {
+            var csrf_token_val = $(data).find("#csrf_token").val();
+            $("#csrf_token").val(csrf_token_val);
+            // DEBUG
+            var time = new Date();
+            console.log(time)
+        },
+        complete: function(){
+            setTimeout(update_csrf, 1680000);
+        }
+    });
+};
+
 $(function(){
-    // Show match group block which is hidden for noscript
-    // and hide submit button
+    // Show match group block which is hidden for noscript and hide submit button
 	$(".js").css("display", "block");
 	$("input[type=submit]").hide();
 
@@ -73,6 +89,7 @@ $(function(){
         show_example();
     }
     re_json();
+    setTimeout(update_csrf, 1680000);
 
     // Show/hide quickref
     $(".quickref").hide();
