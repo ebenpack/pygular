@@ -62,9 +62,6 @@ var update_csrf = function() {
         success: function(data) {
             var csrf_token_val = $(data).find("#csrf_token").val();
             $("#csrf_token").val(csrf_token_val);
-            // DEBUG
-            var time = new Date();
-            console.log(time);
         },
         complete: function(){
             setTimeout(update_csrf, 1680000);
