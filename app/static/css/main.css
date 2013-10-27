@@ -166,6 +166,8 @@ input, textarea {
       border: 10px solid #3d3e35;
       padding: 0.5em;
       margin-top: 0.5em; }
+    .regex_main .result .match_list .text, .regex_main .result .match_text .text {
+      line-height: 1.7em; }
     .regex_main .result .match_list .js, .regex_main .result .match_text .js {
       display: none; }
     .regex_main .result .match_list .list ol, .regex_main .result .match_text .list ol {
