@@ -17,8 +17,11 @@ class RegEx(unittest.TestCase):
         RegEx = pygular.RegEx(pattern, options, test_string)
         test_match = RegEx.regexp_match()
         match_results = pygular.Match(
-            match_groups=[[{u'month': u'10'}, {u'day': u'14'}, {u'year': u'2013'}], [{u'month': u'10'}, {u'day': u'15'}, {u'year': u'2013'}]],
-            match_text=u'Today\'s date is <span class="match hilite">10/14/2013</span>.\nTomorrow\'s date is <span class="match hilite">10/15/2013</span>.',
+            match_groups=[{'match': [{'value': u'10', 'title': u'month'}, {'value': u'14', 'title': u'day'},
+                                     {'value': u'2013', 'title': u'year'}]},
+                                     {'match': [{'value': u'10', 'title': u'month'},
+                                     {'value': u'15', 'title': u'day'}, {'value': u'2013', 'title': u'year'}]}],
+            match_text=u"Today's date is <span class='match hilite'>10/14/2013</span>.\nTomorrow's date is <span class='match hilite'>10/15/2013</span>.",
             warn='')
         self.assertEqual(test_match, match_results)
 
@@ -30,8 +33,9 @@ class RegEx(unittest.TestCase):
         RegEx = pygular.RegEx(pattern, options, test_string)
         test_match = RegEx.regexp_match()
         match_results = pygular.Match(
-            match_groups=[[{1: u'1'}], [{1: u'2'}], [{1: u'3'}]],
-            match_text=u'a<span class="match hilite">1</span>b<span class="match hilite">2</span>c<span class="match hilite">3</span>',
+            match_groups=[{'match': [{'value': u'1', 'title': 1}]}, {'match': [{'value': u'2', 'title': 1}]},
+                          {'match': [{'value': u'3', 'title': 1}]}],
+            match_text=u"a<span class='match hilite'>1</span>b<span class='match hilite'>2</span>c<span class='match hilite'>3</span>",
             warn='')
         self.assertEqual(test_match, match_results)
 
@@ -43,8 +47,9 @@ class RegEx(unittest.TestCase):
         RegEx = pygular.RegEx(pattern, options, test_string)
         test_match = RegEx.regexp_match()
         match_results = pygular.Match(
-            match_groups=[ [{1:u'a1'}, {u'named': u'1'}], [{1:u'a2'}, {u'named': u'2'}] ],
-            match_text=u'<span class="match hilite">a1</span>b2c3<span class="match hilite">a2</span>s',
+            match_groups=[{'match': [{'value': u'a1', 'title': 1}, {'value': u'1', 'title': u'named'}]},
+                          {'match': [{'value': u'a2', 'title': 1}, {'value': u'2', 'title': u'named'}]}],
+            match_text=u"<span class='match hilite'>a1</span>b2c3<span class='match hilite'>a2</span>s",
             warn='')
         self.assertEqual(test_match, match_results)
 
@@ -56,8 +61,11 @@ class RegEx(unittest.TestCase):
         RegEx = pygular.RegEx(pattern, options, test_string)
         test_match = RegEx.regexp_match()
         match_results = pygular.Match(
-            match_groups=[ [{1:u'abc'}, {2: u'ab'}, {3:u'a'}, {4:u'c'}], [{1:u'def'}, {2: u'de'}, {3:u'd'}, {4:u'f'}] ],
-            match_text=u'<span class="match hilite">abc</span><span class="match hilite">def</span>',
+            match_groups=[{'match': [{'value': u'abc', 'title': 1}, {'value': u'ab', 'title': 2},
+                                     {'value': u'a', 'title': 3}, {'value': u'c', 'title': 4}]},
+                                     {'match': [{'value': u'def', 'title': 1}, {'value': u'de', 'title': 2},
+                                     {'value': u'd', 'title': 3}, {'value': u'f', 'title': 4}]}],
+            match_text=u"<span class='match hilite'>abc</span><span class='match hilite'>def</span>",
             warn='')
         self.assertEqual(test_match, match_results)
 
@@ -69,8 +77,8 @@ class RegEx(unittest.TestCase):
         RegEx = pygular.RegEx(pattern, options, test_string)
         test_match = RegEx.regexp_match()
         match_results = pygular.Match(
-            match_groups=[ [{1:u"DCCC"}, {2:u"LXXX"}, {3:u"VIII"}] ],
-            match_text=u'<span class="match hilite">MMMMDCCCLXXXVIII</span>',
+            match_groups=[{'match': [{'value': u'DCCC', 'title': 1}, {'value': u'LXXX', 'title': 2}, {'value': u'VIII', 'title': 3}]}],
+            match_text=u"<span class='match hilite'>MMMMDCCCLXXXVIII</span>",
             warn='')
         self.assertEqual(test_match, match_results)
 
@@ -86,10 +94,19 @@ class RegEx(unittest.TestCase):
         RegEx = pygular.RegEx(pattern, options, test_string)
         test_match = RegEx.regexp_match()
         match_results = pygular.Match(
-            match_groups=[ [{1: u''},{2: u''},{3: u''},{4: u''},{5: u''},{6: u''},{7: u''},{8: u''},{9: u''},{10: u''},
-                            {11: u''},{12: u''},{13: u''},{14: u''},{15: u''},{16: u''},{17: u''},{18: u''},{19: u''},
-                            {20: u''},{21: u''},{22: u''},{23: u''},{24: u''}] ],
-            match_text=u'<span class="match hilite">testaddress@example.com</span>',
+            match_groups=[{'match': [{'value': None, 'title': 1}, {'value': None, 'title': 2},
+                                     {'value': None, 'title': 3}, {'value': None, 'title': 4},
+                                     {'value': None, 'title': 5}, {'value': None, 'title': 6},
+                                     {'value': None, 'title': 7}, {'value': None, 'title': 8},
+                                     {'value': None, 'title': 9}, {'value': None, 'title': 10},
+                                     {'value': None, 'title': 11}, {'value': None, 'title': 12},
+                                     {'value': None, 'title': 13}, {'value': None, 'title': 14},
+                                     {'value': None, 'title': 15}, {'value': None, 'title': 16},
+                                     {'value': None, 'title': 17}, {'value': None, 'title': 18},
+                                     {'value': None, 'title': 19}, {'value': None, 'title': 20},
+                                     {'value': None, 'title': 21}, {'value': None, 'title': 22},
+                                     {'value': None, 'title': 23}, {'value': None, 'title': 24}]}],
+            match_text=u"<span class='match hilite'>testaddress@example.com</span>",
             warn='')
         self.assertEqual(test_match, match_results)
 

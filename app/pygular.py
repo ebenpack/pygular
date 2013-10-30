@@ -12,6 +12,8 @@ class RegEx(object):
         self.warn = ""
         self.flags = self.compile_flags()
         self.compiled = self.compile_re()
+        if self.compiled:
+            self.matchlist = list(self.compiled.finditer(self.test_string))
 
     def compile_flags(self):
         flags = {'L': re.L, 'm': re.M, 's': re.S, 'u': re.U, 'i': re.I, 'x': re.X}
@@ -30,41 +32,31 @@ class RegEx(object):
             self.match = Match([], cgi.escape(self.test_string), self.warn)
 
 
-    def capture_groups(self):
+    def serialize_capture_groups(self):
         """
         Returns a list of all match groups. A match group consists of a list of matches, which are dictionaries mapping
         the match number (or name if it is a named match) to the matched text.
         """
 
-        matchlist = self.compiled.finditer(self.test_string)
-        match_return = []
+        serialized = []
 
-        # Is there any situation where two or more names would map to the same group number (i.e. group numbers not unique)?
+        # Is there any situation where two or more names would map to the same group number
+        # (i.e. group numbers not unique)? If so, this would be problematic.
+        groupindex = {v:k for k,v  in self.compiled.groupindex.items()}
 
-        if matchlist:
-            matchlist = list(matchlist)
-            for i, group in enumerate(matchlist):
+        if self.matchlist:
+            for match in self.matchlist:
                 newmatch = []
-                if not group.groups():
+                if not match.groups():
                     continue
                 else:
-                    # Is there any situation where two or more names would map to the same group number
-                    # (i.e. group numbers not unique)? If so, this would be problematic.
-                    groupindex = {v:k for k, v in self.compiled.groupindex.items()}
-                    for j, match in enumerate(group.groups()):
-                        if groupindex and (j+1) in groupindex:
-                            newmatch.append({"title":groupindex[(j+1)], "value":match})
+                    for i, match in enumerate(match.groups(), start=1):
+                        if groupindex and i in groupindex:
+                            newmatch.append({"title":groupindex[i], "value":match})
                         else:
-                            # If match is None (which is returned by the match object group() method when a group is contained
-                            # in a part of the pattern that did not match), just add an empty string to the match group.
-                            # Alternatively, something like "<span class='alert'>No Match</span>" could be returned, but
-                            # I'm not sure if that's appropriate/correct or not.
-                            if not match:
-                                newmatch.append({"title":(j+1), "value":""})
-                            else:
-                                newmatch.append({"title":(j+1),"value": match})
-                    match_return.append({"match": newmatch})
-        return match_return
+                            newmatch.append({"title":i,"value": match})
+                    serialized.append({"match": newmatch})
+        return serialized
 
 
     def regexp_highlight(self, html_class="match hilite"):
@@ -72,12 +64,11 @@ class RegEx(object):
         Return the given string with all string sections matched by the given regular expression wrapped in a
         span with a highlight class, and all necessary characters escaped.
         """
-        # I would have liked to do this with re.split, but I don't think it would work properly with capture groups.
-        matchlist = self.compiled.finditer(self.test_string)
+
         span_list = []
         newtext = []
 
-        for match in matchlist:
+        for match in self.matchlist:
             span_list.append(match.span())
 
         if not span_list:
@@ -98,14 +89,14 @@ class RegEx(object):
         matching the given regular expression wrapped in a span with a highlight class, and all newlines
         converted to breaks; a list of all match groups; and any warnings.
         """
+
         if self.compiled:
-            capture_list = self.capture_groups()
+            capture_list = self.serialize_capture_groups()
             fulltext = self.regexp_highlight()
-            match = Match(capture_list, fulltext, self.warn)
-            return match
+            self.match = Match(capture_list, fulltext, self.warn)
+            return self.match
         else:
-            match = Match([], cgi.escape(self.test_string), self.warn)
-            return match
+            return self.match
 
     def regexp_match_json(self):
         """
@@ -113,5 +104,6 @@ class RegEx(object):
         matching the given regular expression wrapped in a span with a highlight class, and all newlines
         converted to breaks; a list of all match groups; and any warnings.
         """
-        match = self.regexp_match()
-        return jsonify(matchgroups=match.match_groups,matchtext=match.match_text, warning=match.warn )
+
+        self.regexp_match()
+        return jsonify(matchgroups=self.match.match_groups,matchtext=self.match.match_text, warning=self.match.warn )
